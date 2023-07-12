@@ -14,24 +14,36 @@ class Mentor:
         self.surname = surname
         self.courses_attached = []
 
-    def rate_hw(self, student, course, grade):
-        if isinstance(student, Student) and course in self.courses_attached and course in student.courses_in_progress:
-            if course in student.grades:
-                student.grades[course] += [grade]
+
+class Lecturer(Mentor):
+    pass
+
+
+class Reviewer(Mentor):
+    def grading(self, student, course, grade):
+        if isinstance(student, Student) and course in student.courses_in_progress and course in self.courses_attached:
+            if isinstance(student,
+                          Student) and course in self.courses_attached and course in student.courses_in_progress:
+                if course in student.grades:
+                    student.grades[course] += [grade]
+                else:
+                    student.grades[course] = [grade]
             else:
-                student.grades[course] = [grade]
-        else:
-            return 'Ошибка'
+                return 'Ошибка'
 
 
 best_student = Student('Ruoy', 'Eman', 'your_gender')
 best_student.courses_in_progress += ['Python']
+best_student.courses_in_progress += ['Java']
 
-cool_mentor = Mentor('Some', 'Buddy')
+cool_mentor = Reviewer('Some', 'Buddy')
 cool_mentor.courses_attached += ['Python']
+cool_mentor.courses_attached += ['Java']
 
-cool_mentor.rate_hw(best_student, 'Python', 10)
-cool_mentor.rate_hw(best_student, 'Python', 10)
-cool_mentor.rate_hw(best_student, 'Python', 10)
+
+cool_mentor.grading(best_student, 'Python', 10)
+cool_mentor.grading(best_student, 'Python', 10)
+cool_mentor.grading(best_student, 'Java', 10)
 
 print(best_student.grades)
+
