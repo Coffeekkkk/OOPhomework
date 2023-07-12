@@ -16,20 +16,20 @@ class Mentor:
 
 
 class Lecturer(Mentor):
-    pass
+    def __init__(self, name, surname):
+        super().__init__(name, surname)
+        self.grades = {}
 
 
 class Reviewer(Mentor):
     def grading(self, student, course, grade):
-        if isinstance(student, Student) and course in student.courses_in_progress and course in self.courses_attached:
-            if isinstance(student,
-                          Student) and course in self.courses_attached and course in student.courses_in_progress:
-                if course in student.grades:
-                    student.grades[course] += [grade]
-                else:
-                    student.grades[course] = [grade]
+        if isinstance(student, Student) and course in self.courses_attached and course in student.courses_in_progress:
+            if course in student.grades:
+                student.grades[course] += [grade]
             else:
-                return 'Ошибка'
+                student.grades[course] = [grade]
+        else:
+            return 'Ошибка'
 
 
 best_student = Student('Ruoy', 'Eman', 'your_gender')
@@ -45,5 +45,7 @@ cool_mentor.grading(best_student, 'Python', 10)
 cool_mentor.grading(best_student, 'Python', 10)
 cool_mentor.grading(best_student, 'Java', 10)
 
+tech = Lecturer("Oleg", "Bulygin")
 print(best_student.grades)
+print(tech.name, tech.surname, tech.courses_attached)
 
