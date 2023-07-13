@@ -7,6 +7,15 @@ class Student:
         self.courses_in_progress = []
         self.grades = {}
 
+    def rate_lector(self, teacher, course, grade):
+        if isinstance(teacher, Lecturer) and course in teacher.courses_attached and course in self.courses_in_progress:
+            if course in teacher.grades:
+                teacher.grades[course] += [grade]
+            else:
+                teacher.grades[course] = [grade]
+        else:
+            return 'Ошибка'
+
 
 class Mentor:
     def __init__(self, name, surname):
@@ -15,14 +24,16 @@ class Mentor:
         self.courses_attached = []
 
 
-class Lecturer(Mentor):
+class Lecturer():
     def __init__(self, name, surname):
-        super().__init__(name, surname)
+        self.name = name
+        self.surname = surname
+        self.courses_attached = []
         self.grades = {}
 
 
 class Reviewer(Mentor):
-    def grading(self, student, course, grade):
+    def rate_st(self, student, course, grade):
         if isinstance(student, Student) and course in self.courses_attached and course in student.courses_in_progress:
             if course in student.grades:
                 student.grades[course] += [grade]
@@ -40,12 +51,16 @@ cool_mentor = Reviewer('Some', 'Buddy')
 cool_mentor.courses_attached += ['Python']
 cool_mentor.courses_attached += ['Java']
 
+lector = Lecturer("Fedor", 'Pupkin')
+lector.courses_attached += ['Python']
+best_student.rate_lector(lector, 'Python', 10)
 
-cool_mentor.grading(best_student, 'Python', 10)
-cool_mentor.grading(best_student, 'Python', 10)
-cool_mentor.grading(best_student, 'Java', 10)
+
+cool_mentor.rate_st(best_student, 'Python', 10)
+cool_mentor.rate_st(best_student, 'Python', 10)
+cool_mentor.rate_st(best_student, 'Java', 10)
 
 tech = Lecturer("Oleg", "Bulygin")
-print(best_student.grades)
-print(tech.name, tech.surname, tech.courses_attached)
+print(lector.grades)
+
 
