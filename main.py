@@ -1,3 +1,13 @@
+def person_average(person):
+    count = 0
+    count_len = 0
+    for value in person.grades.values():
+        count += sum(value)
+        count_len += len(value)
+    average = count / count_len
+    return average
+
+
 class Student:
     def __init__(self, name, surname, gender):
         self.name = name
@@ -75,24 +85,24 @@ class Reviewer(Mentor):
 
 
 lecture_list = []
-stud_list = []
+student_list = []
 
 student1 = Student('Денис', 'Кравченко', 'мужской')
 student1.courses_in_progress += ['Python', 'Git', 'SQL', 'Django']
 student1.finished_courses += ['Введение в программирование']
-stud_list.append(student1)
+student_list.append(student1)
 
 student2 = Student('Станислав', 'Дятловский', 'мужской')
 student2.courses_in_progress += ['Python', 'Git', 'SQL', 'Django']
 student2.finished_courses += ['Основы Java']
-stud_list.append(student2)
+student_list.append(student2)
 
 lecture1 = Lecturer('Олег', 'Булыгин')
 lecture1.courses_attached += ['Python', 'Git']
 lecture_list.append(lecture1)
 
 lecture2 = Lecturer('Федор', 'Пупкин')
-lecture2.courses_attached += ['Python', 'Git']
+lecture2.courses_attached += ['Python', 'SQL']
 lecture_list.append(lecture2)
 
 reviewer1 = Reviewer('Сергей', 'Южаков')
@@ -102,46 +112,47 @@ reviewer2 = Reviewer('Денис', 'Волков')
 reviewer2.courses_attached += ['Python', 'Git', 'SQL', 'Django']
 
 student1.rate_lector(lecture1, 'Python', 10)
-student2.rate_lector(lecture1, 'Python', 9)
-student1.rate_lector(lecture2, 'Python', 9)
+student2.rate_lector(lecture1, 'Python', 6)
+student1.rate_lector(lecture2, 'Python', 6)
 student2.rate_lector(lecture2, 'Python', 10)
 
-reviewer1.rate_st(student1, 'Python', 10)
-reviewer1.rate_st(student2, 'Python', 4)
-reviewer2.rate_st(student1, 'Python', 10)
-reviewer2.rate_st(student2, 'Python', 6)
+reviewer1.rate_st(student1, 'Python', 1)
+reviewer1.rate_st(student2, 'Python', 3)
+reviewer2.rate_st(student1, 'Python', 1)
+reviewer2.rate_st(student2, 'Python', 5)
 
 
 def average_lectors(lec_list, course):
-    count_rate = 0
-    count_volume = 0
-    for obj in lec_list:
-        if course in obj.grades.keys():
-            count_rate += sum(obj.grades[course])
-            count_volume += len(obj.grades[course])
-    average = count_rate / count_volume
-    return average
+    lec_course = []
+    all_grades = 0
+    grade_count = 0
+    for lec in lec_list:
+        if course in lec.courses_attached:
+            lec_course.append(lec)
+    for obj in lec_course:
+        for grade in obj.grades.values():
+            summa = sum(grade)
+            all_grades += summa
+            grade_count += len(grade)
+    all_lector_average = all_grades / grade_count
+    return all_lector_average
 
 
-def average_students(student_list, course):
-    count_rate = 0
-    count_volume = 0
-    for obj in student_list:
-        if course in obj.grades.keys():
-            count_rate += sum(obj.grades[course])
-            count_volume += len(obj.grades[course])
-    average = count_rate / count_volume
-    return average
+def average_students(stud_list, course):
+    lec_course = []
+    all_grades = 0
+    grade_count = 0
+    for stud in stud_list:
+        if course in stud.courses_in_progress:
+            lec_course.append(stud)
+    for obj in lec_course:
+        for grade in obj.grades.values():
+            summa = sum(grade)
+            all_grades += summa
+            grade_count += len(grade)
+    all_lector_average = all_grades / grade_count
+    return print(all_lector_average)
 
 
-def person_average(person):
-    count = 0
-    count_len = 0
-    for value in person.grades.values():
-        count += sum(value)
-        count_len += len(value)
-    average = count / count_len
-    return average
+average_students(student_list, 'Python')
 
-
-print(student1)
