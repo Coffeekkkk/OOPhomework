@@ -154,5 +154,5 @@ def average_students(stud_list, course):
     return print(all_lector_average)
 
 
-average_students(student_list, 'Python')
+
 
