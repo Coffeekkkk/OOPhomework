@@ -42,11 +42,9 @@ class Mentor:
         self.courses_attached = []
 
 
-class Lecturer():
+class Lecturer(Mentor):
     def __init__(self, name, surname):
-        self.name = name
-        self.surname = surname
-        self.courses_attached = []
+        super().__init__(name, surname)
         self.grades = {}
 
     def __str__(self):
