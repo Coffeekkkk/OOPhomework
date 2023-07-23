@@ -31,7 +31,7 @@ reviewer2.courses_attached += ['Python', 'Git', 'SQL', 'Django']
 
 student1.rate_lector(lecture1, 'Python', 10)
 student2.rate_lector(lecture1, 'Python', 6)
-student1.rate_lector(lecture2, 'Python', 6)
+student1.rate_lector(lecture2, 'Python', 5)
 student2.rate_lector(lecture2, 'Python', 10)
 
 reviewer1.rate_st(student1, 'Python', 10)
@@ -48,3 +48,7 @@ print(reviewer2)
 
 print(f'Средняя оценка по всем студентам курса Python: {average_students(student_list, "Python")}')
 print(f'Средняя оценка по всем лекторам курса Python: {average_lectors(lecture_list, "Python")}')
+print(lecture1 < lecture2)
+print(lecture1 > lecture2)
+print(lecture1 <= lecture2)
+print(lecture1 == lecture2)
